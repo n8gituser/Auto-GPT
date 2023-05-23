@@ -12,6 +12,18 @@ RUN apt-get update && apt-get install -y \
 # Install utilities
 RUN apt-get install -y curl jq wget git
 
+
+# Install new things
+ARG DEBIAN_FRONTEND=noninteractive
+ENV TZ=Europe/Berlin
+RUN apt-get install -y tzdata
+RUN apt-get install -y nano software-properties-common apt-transport-https
+
+# for php
+RUN add-apt-repository ppa:ondrej/php -y
+RUN apt-get update && apt-get upgrade -y
+
+
 # Set environment variables
 ENV PIP_NO_CACHE_DIR=yes \
     PYTHONUNBUFFERED=1 \
